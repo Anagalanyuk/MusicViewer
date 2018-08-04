@@ -10,7 +10,7 @@ namespace MusicViewer
 		private XmlNode compositions;
 		private XmlNode list;
 		private XmlDocument musicList = new XmlDocument();
-		private string number;
+		private string numberId;
 		private string path;
 
 		public MusicViewer()
@@ -18,58 +18,7 @@ namespace MusicViewer
 			InitializeComponent();
 		}
 
-		public void OpenXml(string path)
-		{
-			List<string> artists = new List<string>();
-			musicList.Load(path);
-			XmlNode name = musicList.DocumentElement;
-
-			foreach (XmlNode title in name.ChildNodes)
-			{
-				foreach (XmlNode track in title.ChildNodes)
-				{
-					if (track.Attributes.Count > 0)
-					{
-						XmlNode artist = track.Attributes.GetNamedItem("name");
-						if (artist != null)
-						{
-							if (track.Name == "artist")
-							{
-								artists.Add(artist.Value);
-							}
-						}
-					}
-				}
-			}
-
-			artists.Sort();
-			foreach (string art in artists)
-			{
-				MusicBox.Items.Add(art);
-			}
-		}
-
-		private void LoadButton_Click(object sender, EventArgs e)
-		{
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				path = openFileDialog.FileName;
-				OpenXml(path);
-			}
-		}
-
-		private void MusicBox_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			albumComposition.Text = "";
-			releasedComposition.Text = "";
-			lengthComposition.Text = "";
-			genresComposition1.Text = "";
-			genresComposition2.Text = "";
-			genresComposition3.Text = "";
-			MinimumMaximumDate();
-		}
-
-		private void MinimumMaximumDate()
+		private void AddItemComposition()
 		{
 			List<string> listcompositions = new List<string>();
 			if (ListComposition.Items.Count != 0)
@@ -88,19 +37,18 @@ namespace MusicViewer
 					{
 						if (idArtist.Attributes.GetNamedItem("name").Value == MusicBox.Items[MusicBox.SelectedIndex].ToString())
 						{
-							number = idArtist.Attributes.GetNamedItem("id").Value;
+							numberId = idArtist.Attributes.GetNamedItem("id").Value;
 							break;
 						}
 					}
 				}
 			}
 
-			bool minimum = true;
 			foreach (XmlNode track in list.ChildNodes)
 			{
 				if (list.ChildNodes.Count != 0)
 				{
-					if (track.Attributes.GetNamedItem("artist-id").Value == number)
+					if (track.Attributes.GetNamedItem("artist-id").Value == numberId)
 					{
 						foreach (XmlNode comp in compositions.ChildNodes)
 						{
@@ -108,74 +56,17 @@ namespace MusicViewer
 							{
 								foreach (XmlNode artistId in comp.ChildNodes)
 								{
-									if (artistId.Attributes.GetNamedItem("id").Value == number)
+									if (artistId.Attributes.GetNamedItem("id").Value == numberId)
 									{
-										//listcompositions.Add(track.Attributes.GetNamedItem("name").Value);
-										string[] dateComp = track.Attributes.GetNamedItem("released").Value.Split('.');
-										int dateDay = Convert.ToInt32(dateComp[0]);
-										int dateMonth = Convert.ToInt32(dateComp[1]);
-										int dateYear = Convert.ToInt32(dateComp[2]);
-										if (minimum)
-										{
-											minimumDate.MaxDate = DateTime.Now;
-											maximumDate.MaxDate = DateTime.Now;
-											minimumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
-											maximumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
-											minimumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);// DateTime.Now;
-											maximumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);// DateTime.Now;
-											minimum = false;
-										}
-										string[] array = minimumDate.MinDate.ToShortDateString().Split('.');
-										int day = Convert.ToInt32(array[0]);
-										int month = Convert.ToInt32(array[1]);
-										int year = Convert.ToInt32(array[2]);
+										string[] releasComposition = track.Attributes.GetNamedItem("released").Value.ToString().Split('.');
+										int trackDay = Convert.ToInt32(releasComposition[0]);
+										int trackMonth = Convert.ToInt32(releasComposition[1]);
+										int trackYear = Convert.ToInt32(releasComposition[2]);
 
-										if (dateYear < year)
+										DateTime trackReleased = new DateTime(trackYear, trackMonth, trackDay);
+										if (trackReleased >= minimumDate.Value && trackReleased <= maximumDate.Value)
 										{
-											minimumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
-											maximumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
-										}
-										else if (dateYear == year)
-										{
-											if (dateMonth < month)
-											{
-												minimumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
-												maximumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
-											}
-											else if (dateMonth == month)
-											{
-												if (dateDay < day)
-												{
-													minimumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
-													maximumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
-												}
-											}
-										}
-										if (dateYear > year)
-										{
-											minimumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);
-											maximumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);
-										}
-										else if (dateYear == year)
-										{
-											if (dateMonth > month)
-											{
-												minimumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);
-												maximumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);
-											}
-											else if (dateMonth == month)
-											{
-												if (dateDay > day)
-												{
-													minimumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);
-													maximumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);
-												}
-												//else
-												//{
-												//	minimumDate.MaxDate = minimumDate.MinDate;
-												//	maximumDate.MaxDate = minimumDate.MinDate;
-												//}
-											}
+											listcompositions.Add(track.Attributes.GetNamedItem("name").Value);
 										}
 									}
 								}
@@ -190,10 +81,6 @@ namespace MusicViewer
 			{
 				ListComposition.Items.Add(comp);
 			}
-			minimumDate.Value = minimumDate.MinDate;
-			maximumDate.Value = maximumDate.MaxDate;
-			minimumDate.Visible = true;
-			maximumDate.Visible = true;
 		}
 
 		private void ListComposition_SelectedValueChanged(object sender, EventArgs e)
@@ -255,14 +142,152 @@ namespace MusicViewer
 			}
 		}
 
+		private void LoadButton_Click(object sender, EventArgs e)
+		{
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				path = openFileDialog.FileName;
+				OpenXml(path);
+			}
+		}
+
 		private void MaximumDate_ValueChanged(object sender, EventArgs e)
 		{
-			//ListCompositions();
+			AddItemComposition();
 		}
 
 		private void MinimumDate_ValueChanged(object sender, EventArgs e)
 		{
-			//ListCompositions();
+			AddItemComposition();
+		}
+
+		private void MinimumMaximumDate()
+		{
+			List<string> listcompositions = new List<string>();
+			if (ListComposition.Items.Count != 0)
+			{
+				ListComposition.Items.Clear();
+			}
+
+			compositions = musicList.DocumentElement;
+			list = compositions.LastChild;
+
+			foreach (XmlNode artist in compositions.ChildNodes)
+			{
+				if (artist.Name == "artists")
+				{
+					foreach (XmlNode idArtist in artist.ChildNodes)
+					{
+						if (idArtist.Attributes.GetNamedItem("name").Value == MusicBox.Items[MusicBox.SelectedIndex].ToString())
+						{
+							numberId = idArtist.Attributes.GetNamedItem("id").Value;
+							break;
+						}
+					}
+				}
+			}
+
+			bool minimum = true;
+			foreach (XmlNode track in list.ChildNodes)
+			{
+				if (list.ChildNodes.Count != 0)
+				{
+					if (track.Attributes.GetNamedItem("artist-id").Value == numberId)
+					{
+						foreach (XmlNode comp in compositions.ChildNodes)
+						{
+							if (comp.Name == "artists")
+							{
+								foreach (XmlNode artistId in comp.ChildNodes)
+								{
+									if (artistId.Attributes.GetNamedItem("id").Value == numberId)
+									{
+										string[] dateComp = track.Attributes.GetNamedItem("released").Value.Split('.');
+										int dateDay = Convert.ToInt32(dateComp[0]);
+										int dateMonth = Convert.ToInt32(dateComp[1]);
+										int dateYear = Convert.ToInt32(dateComp[2]);
+										if (minimum)
+										{
+											minimumDate.MaxDate = DateTime.Now;
+											maximumDate.MaxDate = DateTime.Now;
+											minimumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
+											maximumDate.MinDate = new DateTime(dateYear, dateMonth, dateDay);
+											minimumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);
+											maximumDate.MaxDate = new DateTime(dateYear, dateMonth, dateDay);
+											minimum = false;
+										}
+
+										string[] array = minimumDate.MinDate.ToShortDateString().Split('.');
+										int day = Convert.ToInt32(array[0]);
+										int month = Convert.ToInt32(array[1]);
+										int year = Convert.ToInt32(array[2]);
+
+										DateTime dateComposition = new DateTime(dateYear, dateMonth, dateDay);
+										DateTime artistReleaed = new DateTime(year, month, day);
+										if (dateComposition < artistReleaed)
+										{
+											minimumDate.MinDate = dateComposition;
+											maximumDate.MinDate = dateComposition;
+										}
+										else if (dateComposition > minimumDate.MaxDate)
+										{
+											minimumDate.MaxDate = dateComposition;
+											maximumDate.MaxDate = dateComposition;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			minimumDate.Value = minimumDate.MinDate;
+			maximumDate.Value = maximumDate.MaxDate;
+			minimumDate.Visible = true;
+			maximumDate.Visible = true;
+		}
+
+		private void MusicBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			albumComposition.Text = "";
+			releasedComposition.Text = "";
+			lengthComposition.Text = "";
+			genresComposition1.Text = "";
+			genresComposition2.Text = "";
+			genresComposition3.Text = "";
+			MinimumMaximumDate();
+			AddItemComposition();
+		}
+
+		public void OpenXml(string path)
+		{
+			List<string> artists = new List<string>();
+			musicList.Load(path);
+			XmlNode name = musicList.DocumentElement;
+
+			foreach (XmlNode title in name.ChildNodes)
+			{
+				foreach (XmlNode track in title.ChildNodes)
+				{
+					if (track.Attributes.Count > 0)
+					{
+						XmlNode artist = track.Attributes.GetNamedItem("name");
+						if (artist != null)
+						{
+							if (track.Name == "artist")
+							{
+								artists.Add(artist.Value);
+							}
+						}
+					}
+				}
+			}
+
+			artists.Sort();
+			foreach (string art in artists)
+			{
+				MusicBox.Items.Add(art);
+			}
 		}
 	}
 }
