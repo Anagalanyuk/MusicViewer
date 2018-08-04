@@ -69,6 +69,7 @@ namespace MusicViewer
 											listcompositions.Add(track.Attributes.GetNamedItem("name").Value);
 										}
 									}
+									break;
 								}
 							}
 						}
@@ -234,6 +235,7 @@ namespace MusicViewer
 											minimumDate.MaxDate = dateComposition;
 											maximumDate.MaxDate = dateComposition;
 										}
+										break;
 									}
 								}
 							}
