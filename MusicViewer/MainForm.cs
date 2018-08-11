@@ -20,10 +20,10 @@ namespace MusicViewer
 
 		private void AddComposition()
 		{
-			List<string> listcompositions = new List<string>();
-			if (ListComposition.Items.Count != 0)
+			List<string> listCompositions = new List<string>();
+			if (listComposition.Items.Count != 0)
 			{
-				ListComposition.Items.Clear();
+				listComposition.Items.Clear();
 			}
 
 			compositions = musicList.DocumentElement;
@@ -66,7 +66,7 @@ namespace MusicViewer
 										DateTime trackReleased = new DateTime(trackYear, trackMonth, trackDay);
 										if (trackReleased >= minimumDate.Value && trackReleased <= maximumDate.Value)
 										{
-											listcompositions.Add(track.Attributes.GetNamedItem("name").Value);
+											listCompositions.Add(track.Attributes.GetNamedItem("name").Value);
 										}
 									}
 								}
@@ -76,10 +76,10 @@ namespace MusicViewer
 				}
 			}
 
-			listcompositions.Sort();
-			foreach (string composition in listcompositions)
+			listCompositions.Sort();
+			foreach (string composition in listCompositions)
 			{
-				ListComposition.Items.Add(composition);
+				listComposition.Items.Add(composition);
 			}
 		}
 
@@ -89,7 +89,7 @@ namespace MusicViewer
 
 			foreach (XmlNode track in list.ChildNodes)
 			{
-				if (track.Attributes.GetNamedItem("name").Value == ListComposition.SelectedItem)
+				if (track.Attributes.GetNamedItem("name").Value == listComposition.SelectedItem)
 				{
 					foreach (XmlNode albums in compositions.ChildNodes)
 					{
@@ -159,9 +159,9 @@ namespace MusicViewer
 		private void MinimumMaximumDate()
 		{
 			List<string> listcompositions = new List<string>();
-			if (ListComposition.Items.Count != 0)
+			if (listComposition.Items.Count != 0)
 			{
-				ListComposition.Items.Clear();
+				listComposition.Items.Clear();
 			}
 
 			compositions = musicList.DocumentElement;

@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.loadButton = new System.Windows.Forms.Button();
-			this.ListComposition = new System.Windows.Forms.ListBox();
+			this.listComposition = new System.Windows.Forms.ListBox();
 			this.MusicBox = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -58,14 +58,14 @@
 			// 
 			// ListComposition
 			// 
-			this.ListComposition.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.ListComposition.FormattingEnabled = true;
-			this.ListComposition.ItemHeight = 16;
-			this.ListComposition.Location = new System.Drawing.Point(12, 93);
-			this.ListComposition.Name = "ListComposition";
-			this.ListComposition.Size = new System.Drawing.Size(255, 308);
-			this.ListComposition.TabIndex = 1;
-			this.ListComposition.SelectedValueChanged += new System.EventHandler(this.ListComposition_SelectedValueChanged);
+			this.listComposition.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.listComposition.FormattingEnabled = true;
+			this.listComposition.ItemHeight = 16;
+			this.listComposition.Location = new System.Drawing.Point(12, 93);
+			this.listComposition.Name = "ListComposition";
+			this.listComposition.Size = new System.Drawing.Size(255, 308);
+			this.listComposition.TabIndex = 1;
+			this.listComposition.SelectedValueChanged += new System.EventHandler(this.ListComposition_SelectedValueChanged);
 			// 
 			// MusicBox
 			// 
@@ -213,7 +213,7 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.MusicBox);
-			this.Controls.Add(this.ListComposition);
+			this.Controls.Add(this.listComposition);
 			this.Controls.Add(this.loadButton);
 			this.MaximizeBox = false;
 			this.Name = "MusicViewer";
@@ -227,7 +227,7 @@
 		#endregion
 
 		private System.Windows.Forms.Button loadButton;
-		private System.Windows.Forms.ListBox ListComposition;
+		private System.Windows.Forms.ListBox listComposition;
 		private System.Windows.Forms.ComboBox MusicBox;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
