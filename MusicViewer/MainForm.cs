@@ -18,7 +18,7 @@ namespace MusicViewer
 			InitializeComponent();
 		}
 
-		private void AddItemComposition()
+		private void AddComposition()
 		{
 			List<string> listcompositions = new List<string>();
 			if (ListComposition.Items.Count != 0)
@@ -148,12 +148,12 @@ namespace MusicViewer
 
 		private void MaximumDate_ValueChanged(object sender, EventArgs e)
 		{
-			AddItemComposition();
+			AddComposition();
 		}
 
 		private void MinimumDate_ValueChanged(object sender, EventArgs e)
 		{
-			AddItemComposition();
+			AddComposition();
 		}
 
 		private void MinimumMaximumDate()
@@ -250,7 +250,7 @@ namespace MusicViewer
 			lengthComposition.Text = "";
 			genresComposition.Text = "";
 			MinimumMaximumDate();
-			AddItemComposition();
+			AddComposition();
 		}
 
 		public void OpenXml(string path)
