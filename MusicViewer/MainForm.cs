@@ -50,11 +50,11 @@ namespace MusicViewer
 				{
 					if (track.Attributes.GetNamedItem("artist-id").Value == numberId)
 					{
-						foreach (XmlNode comp in compositions.ChildNodes)
+						foreach (XmlNode composition in compositions.ChildNodes)
 						{
-							if (comp.Name == "artists")
+							if (composition.Name == "artists")
 							{
-								foreach (XmlNode artistId in comp.ChildNodes)
+								foreach (XmlNode artistId in composition.ChildNodes)
 								{
 									if (artistId.Attributes.GetNamedItem("id").Value == numberId)
 									{
@@ -77,9 +77,9 @@ namespace MusicViewer
 			}
 
 			listcompositions.Sort();
-			foreach (string comp in listcompositions)
+			foreach (string composition in listcompositions)
 			{
-				ListComposition.Items.Add(comp);
+				ListComposition.Items.Add(composition);
 			}
 		}
 
@@ -189,11 +189,11 @@ namespace MusicViewer
 				{
 					if (track.Attributes.GetNamedItem("artist-id").Value == numberId)
 					{
-						foreach (XmlNode comp in compositions.ChildNodes)
+						foreach (XmlNode composition in compositions.ChildNodes)
 						{
-							if (comp.Name == "artists")
+							if (composition.Name == "artists")
 							{
-								foreach (XmlNode artistId in comp.ChildNodes)
+								foreach (XmlNode artistId in composition.ChildNodes)
 								{
 									if (artistId.Attributes.GetNamedItem("id").Value == numberId)
 									{
@@ -278,9 +278,9 @@ namespace MusicViewer
 			}
 
 			artists.Sort();
-			foreach (string art in artists)
+			foreach (string artist in artists)
 			{
-				MusicBox.Items.Add(art);
+				MusicBox.Items.Add(artist);
 			}
 		}
 	}
