@@ -69,7 +69,6 @@ namespace MusicViewer
 											listcompositions.Add(track.Attributes.GetNamedItem("name").Value);
 										}
 									}
-									break;
 								}
 							}
 						}
@@ -86,9 +85,7 @@ namespace MusicViewer
 
 		private void ListComposition_SelectedValueChanged(object sender, EventArgs e)
 		{
-			genresComposition1.Text = "";
-			genresComposition2.Text = "";
-			genresComposition3.Text = "";
+			genresComposition.Text = "";
 
 			foreach (XmlNode track in list.ChildNodes)
 			{
@@ -122,17 +119,14 @@ namespace MusicViewer
 								{
 									if (id.Attributes.GetNamedItem("id").Value == idGenre.Attributes.GetNamedItem("genre-id").Value)
 									{
-										if (genresComposition1.Text.Length == 0)
+										if (genresComposition.Text.Length == 0)
 										{
-											genresComposition1.Text = id.Attributes.GetNamedItem("name").Value;
+											genresComposition.Text = id.Attributes.GetNamedItem("name").Value;
 										}
-										else if (genresComposition2.Text.Length == 0)
+										else
 										{
-											genresComposition2.Text = id.Attributes.GetNamedItem("name").Value;
-										}
-										else if (genresComposition3.Text.Length == 0)
-										{
-											genresComposition3.Text = id.Attributes.GetNamedItem("name").Value;
+											genresComposition.Text += ",\n";
+											genresComposition.Text += id.Attributes.GetNamedItem("name").Value;
 										}
 									}
 								}
@@ -254,9 +248,7 @@ namespace MusicViewer
 			albumComposition.Text = "";
 			releasedComposition.Text = "";
 			lengthComposition.Text = "";
-			genresComposition1.Text = "";
-			genresComposition2.Text = "";
-			genresComposition3.Text = "";
+			genresComposition.Text = "";
 			MinimumMaximumDate();
 			AddItemComposition();
 		}

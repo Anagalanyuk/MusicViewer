@@ -43,9 +43,7 @@
 			this.albumComposition = new System.Windows.Forms.Label();
 			this.releasedComposition = new System.Windows.Forms.Label();
 			this.lengthComposition = new System.Windows.Forms.Label();
-			this.genresComposition1 = new System.Windows.Forms.Label();
-			this.genresComposition2 = new System.Windows.Forms.Label();
-			this.genresComposition3 = new System.Windows.Forms.Label();
+			this.genresComposition = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// loadButton
@@ -187,32 +185,14 @@
 			this.lengthComposition.Size = new System.Drawing.Size(0, 20);
 			this.lengthComposition.TabIndex = 14;
 			// 
-			// genresComposition1
+			// genresComposition
 			// 
-			this.genresComposition1.AutoSize = true;
-			this.genresComposition1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.genresComposition1.Location = new System.Drawing.Point(355, 232);
-			this.genresComposition1.Name = "genresComposition1";
-			this.genresComposition1.Size = new System.Drawing.Size(0, 20);
-			this.genresComposition1.TabIndex = 15;
-			// 
-			// genresComposition2
-			// 
-			this.genresComposition2.AutoSize = true;
-			this.genresComposition2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.genresComposition2.Location = new System.Drawing.Point(355, 263);
-			this.genresComposition2.Name = "genresComposition2";
-			this.genresComposition2.Size = new System.Drawing.Size(0, 20);
-			this.genresComposition2.TabIndex = 16;
-			// 
-			// genresComposition3
-			// 
-			this.genresComposition3.AutoSize = true;
-			this.genresComposition3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.genresComposition3.Location = new System.Drawing.Point(355, 293);
-			this.genresComposition3.Name = "genresComposition3";
-			this.genresComposition3.Size = new System.Drawing.Size(0, 20);
-			this.genresComposition3.TabIndex = 17;
+			this.genresComposition.AutoSize = true;
+			this.genresComposition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.genresComposition.Location = new System.Drawing.Point(355, 232);
+			this.genresComposition.Name = "genresComposition";
+			this.genresComposition.Size = new System.Drawing.Size(0, 20);
+			this.genresComposition.TabIndex = 15;
 			// 
 			// MusicViewer
 			// 
@@ -220,9 +200,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(523, 432);
-			this.Controls.Add(this.genresComposition3);
-			this.Controls.Add(this.genresComposition2);
-			this.Controls.Add(this.genresComposition1);
+			this.Controls.Add(this.genresComposition);
 			this.Controls.Add(this.lengthComposition);
 			this.Controls.Add(this.releasedComposition);
 			this.Controls.Add(this.albumComposition);
@@ -263,9 +241,7 @@
 		private System.Windows.Forms.Label albumComposition;
 		private System.Windows.Forms.Label releasedComposition;
 		private System.Windows.Forms.Label lengthComposition;
-		private System.Windows.Forms.Label genresComposition1;
-		private System.Windows.Forms.Label genresComposition2;
-		private System.Windows.Forms.Label genresComposition3;
+		private System.Windows.Forms.Label genresComposition;
 	}
 }
 
