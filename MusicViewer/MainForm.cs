@@ -198,10 +198,10 @@ namespace MusicViewer
 								{
 									if (artistId.Attributes.GetNamedItem("id").Value == numberId)
 									{
-										string released = track.Attributes.GetNamedItem("released").Value;//.Split('.');
-										for(int i = 0; i < released.Length; i++)
+										string released = track.Attributes.GetNamedItem("released").Value;
+										for (int i = 0; i < released.Length; i++)
 										{
-											if(released[i] < '0' || released[i] > '9')
+											if (released[i] < '0' || released[i] > '9')
 											{
 												delimiter = released[i];
 												break;
