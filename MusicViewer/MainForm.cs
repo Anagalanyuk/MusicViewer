@@ -59,7 +59,15 @@ namespace MusicViewer
 								{
 									if (artistId.Attributes.GetNamedItem("id").Value == numberId)
 									{
-										string[] releasComposition = track.Attributes.GetNamedItem("released").Value.ToString().Split('.');
+										string releasDate = track.Attributes.GetNamedItem("released").Value.ToString();//.Split('.');
+										for(int i = 0; i < releasDate.Length; i++)
+										{
+											if(releasDate[i] < '0' || releasDate[i] > '9')
+											{
+												delimiter = releasDate[i];
+											}
+										}
+										string[] releasComposition = releasDate.Split(delimiter); 
 										int trackDay = Convert.ToInt32(releasComposition[0]);
 										int trackMonth = Convert.ToInt32(releasComposition[1]);
 										int trackYear = Convert.ToInt32(releasComposition[2]);
