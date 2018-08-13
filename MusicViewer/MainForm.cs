@@ -59,15 +59,8 @@ namespace MusicViewer
 								{
 									if (artistId.Attributes.GetNamedItem("id").Value == numberId)
 									{
-										string releasDate = track.Attributes.GetNamedItem("released").Value.ToString();//.Split('.');
-										for(int i = 0; i < releasDate.Length; i++)
-										{
-											if(releasDate[i] < '0' || releasDate[i] > '9')
-											{
-												delimiter = releasDate[i];
-											}
-										}
-										string[] releasComposition = releasDate.Split(delimiter); 
+										string releasDate = track.Attributes.GetNamedItem("released").Value.ToString();
+										string[] releasComposition = releasDate.Split(Delimetr(releasDate)); 
 										int trackDay = Convert.ToInt32(releasComposition[0]);
 										int trackMonth = Convert.ToInt32(releasComposition[1]);
 										int trackYear = Convert.ToInt32(releasComposition[2]);
@@ -90,6 +83,19 @@ namespace MusicViewer
 			{
 				listComposition.Items.Add(composition);
 			}
+		}
+
+		private char Delimetr(string item)
+		{
+			foreach(char symbol in item)
+			{
+				if(symbol < '0' || symbol > '9')
+				{
+					delimiter = symbol;
+					break;
+				}
+			}
+			return delimiter;
 		}
 
 		private void ListComposition_SelectedValueChanged(object sender, EventArgs e)
@@ -207,15 +213,7 @@ namespace MusicViewer
 									if (artistId.Attributes.GetNamedItem("id").Value == numberId)
 									{
 										string released = track.Attributes.GetNamedItem("released").Value;
-										for (int i = 0; i < released.Length; i++)
-										{
-											if (released[i] < '0' || released[i] > '9')
-											{
-												delimiter = released[i];
-												break;
-											}
-										}
-										string[] compositionDate = released.Split(delimiter);
+										string[] compositionDate = released.Split(Delimetr(released));
 										int dateDay = Convert.ToInt32(compositionDate[0]);
 										int dateMonth = Convert.ToInt32(compositionDate[1]);
 										int dateYear = Convert.ToInt32(compositionDate[2]);
@@ -230,7 +228,9 @@ namespace MusicViewer
 											minimum = false;
 										}
 
-										string[] array = minimumDate.MinDate.ToShortDateString().Split('.');
+										string date = minimumDate.MinDate.ToShortDateString();
+										string[] array = date.Split(Delimetr(date));
+
 										int day = Convert.ToInt32(array[0]);
 										int month = Convert.ToInt32(array[1]);
 										int year = Convert.ToInt32(array[2]);
